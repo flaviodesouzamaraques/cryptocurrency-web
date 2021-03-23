@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign-Up</title>
+</head>
+<body>
+    <h1>Sign-Up</h1>
+    <form method="POST" action="/signup">
+        <fieldset>
+            <legend>Personal Info</legend>
+            <p>
+                <label for="name">Name</label>
+                <input id="name" type="text" name="name" required />
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Credentials</legend>
+            <p>
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" required />
+            </p>
+            <p>
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password" required/>
+            </p>
+        </fieldset>
+        <!-- <fieldset>
+            <legend>Contact</legend>
+            <p>
+                <label for="ddd">DDD</label>
+                <input id="ddd" type="text" name="ddd" placeholder />
+            </p>
+            <p>
+                <label for="telephone">Telephone</label>
+                <input id="telephone" type="text" name="telephone" />
+            </p>
+        </fieldset>-->
+        <button type="submit">SAVE</button>
+        <button type="reset">CLEAR</button>
+        <a href="/signin">BACK</a>
+    </form>
+</body>
+</html>
