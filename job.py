@@ -6,7 +6,7 @@ from datetime import datetime
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('interval', seconds=1)
+@sched.scheduled_job('interval', seconds=30)
 def timed_job():
     res = requests.get(
         'https://api.cryptonator.com/api/full/btc-brl',
