@@ -31,8 +31,9 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-class CryptocurrenceQuotes(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+class CryptocurrencyQuote(db.Model):
+    __tablename__ = 'cryptocurrency_quotes'
+    id = db.Column(db.Integer, primary_key=True)
     symbol = db.Column(db.String)
     price_currency = db.Column(db.String)
     price_amount = db.Column(db.Float)
@@ -42,7 +43,12 @@ class CryptocurrenceQuotes(db.Model):
 @app.route("/")
 @login_required
 def home():
-    return render_template('home.html', name=current_user.name)
+    quotes = CryptocurrencyQuote.query \
+                                .order_by(CryptocurrencyQuote.timestamp.desc()) \
+                                .limit(5) \
+                                .all()
+    return render_template('home.html', name=current_user.name, quotes=quotes)
+
 
 
 
