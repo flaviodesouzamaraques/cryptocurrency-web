@@ -4,3 +4,12 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"email"	TEXT NOT NULL,
 	"password"	INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS "cryptocurrency_quotes" (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+        symbol VARCHAR(3) NOT NULL,
+        price_currency VARCHAR(3) NOT NULL,
+        price_amount NUMERIC NOT NULL,
+        timestamp DATETIME NOT NULL
+
+);
