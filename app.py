@@ -1,7 +1,4 @@
-import sqlite3
-import bcrypt
-
-from flask import Flask, session, redirect, url_for
+from flask import Flask, redirect, url_for
 from flask import render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -18,9 +15,10 @@ login_manager = LoginManager()
 login_manager.login_view = 'signin'
 login_manager.init_app(app)
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String)
     name = db.Column(db.String)
     password = db.Column(db.String)
@@ -44,11 +42,9 @@ class CryptocurrencyQuote(db.Model):
 def home():
     quotes = CryptocurrencyQuote.query \
                                 .order_by(CryptocurrencyQuote.timestamp.desc()) \
-                                .limit(50) \
+                                .limit(10) \
                                 .all()
     return render_template('home.html', name=current_user.name, quotes=quotes)
-
-
 
 
 @app.route("/logout")
@@ -78,8 +74,8 @@ def signup():
         return render_template('signup.html')
 
     new_user = User(name=request.form.get('name'),
-                    email=request.form.get('email'))
-    new_user.password = generate_password_hash(request.form.get('password'), method='sha256')
+                    email=request.form.get('email'),
+                    password=generate_password_hash(request.form.get('password'), method='sha256'))
     db.session.add(new_user)
     db.session.commit()
 
