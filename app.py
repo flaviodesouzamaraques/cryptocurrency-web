@@ -4,11 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user, LoginManager
 from flask_login import UserMixin
-
+import os
 
 app = Flask(__name__)
 app.secret_key = b'X\xd4*\r\x1f\xd8\xc4!\xa7G\x0foj\xf8\x1d\xb9'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///local.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DB_URL']
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
