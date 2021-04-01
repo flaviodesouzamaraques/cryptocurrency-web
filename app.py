@@ -7,7 +7,7 @@ from flask_login import UserMixin
 import os
 
 app = Flask(__name__)
-app.secret_key = b'X\xd4*\r\x1f\xd8\xc4!\xa7G\x0foj\xf8\x1d\xb9'
+app.secret_key = os.environ['SECRET_KEY']
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DB_URL']
 db = SQLAlchemy(app)
 
