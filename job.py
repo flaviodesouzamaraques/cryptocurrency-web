@@ -1,7 +1,8 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 import requests
-import sqlite3
 from datetime import datetime
+from sqlalchemy.orm import Session
+from app import db, CryptocurrencyQuote
 
 sched = BlockingScheduler()
 
@@ -25,12 +26,18 @@ def timed_job():
     price_amount = ticker["price"]
     timestamp = datetime.fromtimestamp(json["timestamp"]).strftime("%Y-%m-%d %H:%M:%S")
 
-    print(timestamp)
-    conn = sqlite3.connect('local.db')
-    print(f"INSERT INTO cryptocurrency_quotes (symbol, price_currency, price_amount, timestamp) VALUES ('{symbol}', '{price_currency}', {price_amount}, '{timestamp}')")
-    conn.execute(f"INSERT INTO cryptocurrency_quotes (symbol, price_currency, price_amount, timestamp) VALUES ('{symbol}', '{price_currency}', {price_amount}, '{timestamp}')")
-    print(ticker["base"], ' ', ticker["target"], ticker["price"], ' ', ticker["price"], ' ', timestamp)
-    conn.commit()
-    conn.close()
+    new_quote = CryptocurrencyQuote(symbol=symbol, price_currency=price_currency,
+                                    price_amount=price_amount, timestamp=timestamp)
 
-sched.start()
+    with Session(db.engine) as session:
+        try:
+            session.add(new_quote)
+        except:
+            session.rollback()
+        else:
+            session.commit()
+            print(f"quote saved: {str(new_quote)}")
+
+
+if __name__ == '__main__':
+    sched.start()
