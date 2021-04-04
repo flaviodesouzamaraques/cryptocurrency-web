@@ -64,7 +64,7 @@ def dashboard():
 @app.route("/bitcoin-prices.json")
 def bitcoin_prices():
     quotes = CryptocurrencyQuote.query \
-                                .order_by(CryptocurrencyQuote.timestamp.asc()) \
+                                .order_by(CryptocurrencyQuote.timestamp.desc()) \
                                 .limit(100) \
                                 .all()
     return {'quotes': [quote.to_dict() for quote in quotes]}
