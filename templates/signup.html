@@ -1,47 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign-Up</title>
-</head>
-<body>
-    <h1>Sign-Up</h1>
-    <form method="POST" action="/signup">
-        <fieldset>
-            <legend>Personal Info</legend>
-            <p>
-                <label for="name">Name</label>
-                <input id="name" type="text" name="name" required />
-            </p>
-        </fieldset>
-        <fieldset>
-            <legend>Credentials</legend>
-            <p>
-                <label for="email">Email</label>
-                <input id="email" type="email" name="email" required />
-            </p>
-            <p>
-                <label for="password">Password</label>
-                <input id="password" type="password" name="password" required/>
-            </p>
-        </fieldset>
-        <!-- <fieldset>
-            <legend>Contact</legend>
-            <p>
-                <label for="ddd">DDD</label>
-                <input id="ddd" type="text" name="ddd" placeholder />
-            </p>
-            <p>
-                <label for="telephone">Telephone</label>
-                <input id="telephone" type="text" name="telephone" />
-            </p>
-        </fieldset>-->
-        <button type="submit">SAVE</button>
-        <button type="reset">CLEAR</button>
-        <a href="/signin">BACK</a>
-    </form>
-</body>
-</html>
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold lh-1 mb-3">Vertically centered hero sign-up form</h1>
+            <p class="col-lg-10 fs-4">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+        </div>
+        <div class="col-10 mx-auto col-lg-5">
+            {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for msg in messages %}
+                <p>{{ msg }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form method="POST" action="/signup" class="p-5 border rounded-3 bg-light">
+                <div class="form-floating mb-3">
+                    <input type="name" name="name" class="form-control" id="floatingInput" placeholder="Fullname">
+                    <label for="floatingInput">Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

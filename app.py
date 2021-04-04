@@ -38,14 +38,37 @@ class CryptocurrencyQuote(db.Model):
     timestamp = db.Column(db.DateTime, primary_key=True)
 
 
+    def to_dict(self):
+        return {'symbol': self.symbol,
+                'price_currency': self.price_currency,
+                'price_amount': self.price_amount,
+                'timestamp': str(self.timestamp)}
+
+
 @app.route("/")
+def index():
+    return render_template("index.html")
+
+
 @login_required
-def home():
+@app.route("/dashboard")
+def dashboard():
     quotes = CryptocurrencyQuote.query \
                                 .order_by(CryptocurrencyQuote.timestamp.desc()) \
                                 .limit(10) \
                                 .all()
-    return render_template('home.html', name=current_user.name, quotes=quotes)
+    return render_template('dashboard.html', name=current_user.name, quotes=quotes)
+
+
+@login_required
+@app.route("/bitcoin-prices.json")
+def bitcoin_prices():
+    quotes = CryptocurrencyQuote.query \
+                                .order_by(CryptocurrencyQuote.timestamp.desc()) \
+                                .limit(100) \
+                                .all()
+    return {'quotes': [quote.to_dict() for quote in quotes]}
+
 
 
 @app.route("/logout")
@@ -64,7 +87,7 @@ def signin():
         user = User.query.filter_by(email=request.form.get('email')).first()
         if user is not None and check_password_hash(user.password, request.form.get('password')):
             login_user(user, remember=True)
-            return redirect('/')
+            return redirect('/dashboard')
         else:
             return render_template('signin.html', messages=['invalid credentials'])
 

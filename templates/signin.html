@@ -1,87 +1,38 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-        <style type="text/css">
-            html,
-            body {
-              height: 100%;
-            }
+{% extends "layout.html" %}
 
-            .content {
-              display: flex;
-              align-items: center;
-              padding-top: 40px;
-              padding-bottom: 40px;
-              background-color: #f5f5f5;
-            }
+{% block content %}
 
-            .form-signin {
-              width: 100%;
-              max-width: 330px;
-              padding: 15px;
-              margin: auto;
-            }
-
-            .form-signin .checkbox {
-              font-weight: 400;
-            }
-
-            .form-signin .form-floating:focus-within {
-              z-index: 2;
-            }
-
-            .form-signin input[type="email"] {
-              margin-bottom: -1px;
-              border-bottom-right-radius: 0;
-              border-bottom-left-radius: 0;
-            }
-
-            .form-signin input[type="password"] {
-              margin-bottom: 10px;
-              border-top-left-radius: 0;
-              border-top-right-radius: 0;
-            }
-        </style>
-        <title>Cryptocurrency Web: Sign-In</title>
-    </head>
-    <body>
-        <div class="content">
-            <main class="form-signin">
-                {% if messages %}
-                    <div class="alert alert-danger" role="alert">
-                        {% for msg in messages %}
-                            <p>{{ msg }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                <form method="POST" action="/signin">
-                    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
-                    <div class="form-floating">
-                        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
-                    </div>
-
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Remember me
-                        </label>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-                    <a href="/signup" class="w-100 btn btn-lg">Sign up</a>
-                    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
-                </form>
-            </main>
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold lh-1 mb-3">Vertically centered hero sign-in form</h1>
+            <p class="col-lg-10 fs-4">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
         </div>
-    </body>
-</html>
+        <div class="col-10 mx-auto col-lg-5">
+            {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for msg in messages %}
+                <p>{{ msg }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form method="POST" action="/signin" class="p-5 border rounded-3 bg-light">
+                <div class="form-floating mb-3">
+                    <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
